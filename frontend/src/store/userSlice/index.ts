@@ -107,7 +107,7 @@ const userSlice = createSlice({
                })
                .addCase(profile.fulfilled, (state, action: PayloadAction<any>) => {
                     state.loading = false;
-                    state.user = action.payload;
+                    state.user = action.payload.user;
                     state.message = action.payload.message;
                     state.isAuthenticated = action.payload.success;
                })
