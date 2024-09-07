@@ -9,7 +9,7 @@ export function AdminLayout() {
 
      return (
           <div className="flex min-h-screen w-full">
-               <div className="">
+               <div className="sticky top-0 h-screen">
                     <AdminSidebar open={openSidebar} setOpen={setOpenSidebar}/>
                </div>
                <div className="flex flex-1 flex-col">

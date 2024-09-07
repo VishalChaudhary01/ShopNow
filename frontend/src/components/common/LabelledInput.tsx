@@ -10,7 +10,7 @@ interface LabelledInputProps {
 export  function LabelledInput({ onChange, value, name, type, label}: LabelledInputProps) {
      return (
           <div className="mb-5">
-               <label className="block mb-2 text-sm font-medium text-gray-900">
+               <label className="text-md font-semibold mb-2 block text-gray-700">
                     {label}
                </label>
                <input
@@ -18,8 +18,7 @@ export  function LabelledInput({ onChange, value, name, type, label}: LabelledIn
                     value={value}
                     type={type}
                     name={name}
-                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-                    required
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-700 text-md rounded-lg block w-full p-2.5"
                />
           </div>
      )

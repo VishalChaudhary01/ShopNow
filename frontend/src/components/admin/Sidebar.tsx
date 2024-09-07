@@ -5,7 +5,7 @@ import {
   ShoppingBasket,
   BadgePlus
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 
 const adminSidebarMenuItems = [
@@ -18,7 +18,7 @@ const adminSidebarMenuItems = [
   {
     id: "products",
     label: "Products",
-    path: "/admin/product",
+    path: "/admin/products",
     icon: <ShoppingBasket />,
   },
   {
@@ -41,21 +41,25 @@ function MenuItems({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   return (
     <nav className="mt-8 flex-col flex gap-2">
-      {adminSidebarMenuItems.map((menuItem) => (
-        <div
-          key={menuItem.id}
-          onClick={() => {
-            navigate(menuItem.path);
-            setOpen ? setOpen(false) : null;
-          }}
-          className="flex cursor-pointer text-xl items-center gap-2 rounded-md px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-        >
-          {menuItem.icon}
-          <span>{menuItem.label}</span>
-        </div>
-      ))}
+      {adminSidebarMenuItems.map((menuItem) => {
+        const isActive = pathname === menuItem.path || pathname.startsWith(menuItem.path);
+        return (
+          <div
+            key={menuItem.id}
+            onClick={() => {
+              navigate(menuItem.path);
+              setOpen ? setOpen(false) : null;
+            }}
+            className={`flex cursor-pointer text-xl items-center gap-2 rounded-md px-3 py-2 ${isActive ? "bg-gray-800 text-white" : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"}`}
+          >
+            {menuItem.icon}
+            <span>{menuItem.label}</span>
+          </div>
+        )
+      })}
     </nav>
   );
 }
@@ -68,6 +72,7 @@ export function AdminSidebar({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const navigate = useNavigate();
+
   return (
     <>
       <Sheet open={open} onOpenChange={setOpen}>
@@ -83,7 +88,7 @@ export function AdminSidebar({
           </div>
         </SheetContent>
       </Sheet>
-      <aside className="min-h-screen hidden w-64 flex-col border-r p-6 lg:flex">
+      <aside className="h-screen hidden w-64 flex-col border-r p-6 lg:flex">
         <div
           onClick={() => navigate("/admin/dashboard")}
           className="flex cursor-pointer items-center gap-2"

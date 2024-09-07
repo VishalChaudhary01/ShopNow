@@ -15,6 +15,7 @@ import { Home } from "./pages/shop/home";
 import { Cart } from "./pages/shop/cart";
 import { UserAccount } from "./pages/shop/account";
 import { NewProduct } from "./pages/admin/newProduct";
+import { UpdateProduct } from "./pages/admin/updateProduct";
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -48,8 +49,9 @@ export default function App() {
         }>
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="order" element={<AdminOrder />} />
-        <Route path="product" element={<AdminProducts />} />
+        <Route path="products" element={<AdminProducts />} />
         <Route path="new-product" element={<NewProduct />} />
+        <Route path="products/update/:id" element={<UpdateProduct />} />
       </Route>
 
       <Route path="/" element={

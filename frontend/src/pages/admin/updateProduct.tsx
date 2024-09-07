@@ -1,32 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SelectCategory } from "@/components/admin/SelectCategory";
 import { TextArea } from "@/components/admin/TextArea";
 import { LabelledInput } from "@/components/common/LabelledInput";
 import { Button } from "@/components/ui/button";
-import { UploadImage } from "@/components/admin/UploadImage";
-import { useAppDispatch } from "@/store/hooks";
-import { addProduct } from "@/store/admin/productSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { getSingleProduct, updateProduct } from "@/store/admin/productSlice";
 import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
-import { categories } from "@/components/common/productCategory";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const NewProduct = () => {
+export const UpdateProduct = () => {
+  const params = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [imageFile, setImageFile] = useState<File | null>(null);
-  const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
-  const [imageLoadingState, setImageLoadingState] = useState(false);
-
-  const [inputs, setInputs] = useState<AddProductForm>({
-    image: "",
-    title: "",
-    brand: "",
+  const { product } = useAppSelector((state) => state.adminProducts);
+  const [inputs, setInputs] = useState<UpdateProductForm>({
+    title: '',
+    description: '',
+    brand: '',
     price: 0,
-    totalStock: 0,
-    description: "",
     salePrice: 0,
-    category: categories[0],
+    totalStock: 0,
+    category: '',
+    image: '',
   });
+
+
+  useEffect(() => {
+    const id = params.id;
+    if (id) {
+      dispatch(getSingleProduct(id))
+    }
+  }, []);
+
+  useEffect(() => {
+    if (product) {
+      setInputs({
+        title: product.title || '',
+        description: product.description || '',
+        brand: product.brand || '',
+        price: product.price || 0,
+        salePrice: product.salePrice || 0,
+        totalStock: product.totalStock || 0,
+        category: product.category || '',
+        image: product.image || '',
+      });
+    }
+  }, [product]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     const { name, value, files } = e.target as HTMLInputElement;
@@ -40,31 +59,23 @@ export const NewProduct = () => {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!inputs.title || !inputs.salePrice || !inputs.totalStock || !inputs.price || !inputs.brand || !inputs.category || !inputs.description) {
-      return toast.error("All fields are required");
-    }
-    const response = await dispatch(addProduct({ ...inputs, image: uploadedImageUrl}))
-    if (response.payload.success) {
-      toast.success(`${response.payload.message}`);
-      navigate("/admin/products");
-    } else {
-      toast.error("Somethimg went wrong");
-      console.error("Error: ", response);
+    if (product) {
+      const response = await dispatch(updateProduct({id: product._id, formData: inputs}))
+      if (response.payload.success) {
+        toast.success(`${response.payload.message}`);
+        navigate("/admin/products");
+      } else {
+        toast.error("Somethimg went wrong");
+        console.error("Error: ", response);
+      }
     }
   }
 
   return (
     <div className="py-2">
       <div className="flex justify-center text-3xl text-gray-700 font-bold pb-4">
-        Sell new Product
+        Update Product
       </div>
-      <UploadImage
-        imageFile={imageFile}
-        setImageFile={setImageFile}
-        setUploadedImageUrl={setUploadedImageUrl}
-        imageLoadingState={imageLoadingState}
-        setImageLoadingState={setImageLoadingState}
-      />
       <form onSubmit={handleSubmit} encType="multipart/form-data" className="max-w-sm mx-auto py-4">
         <LabelledInput onChange={handleChange} value={inputs.title} name="title" label="Product Name" type="text"/>
         <LabelledInput onChange={handleChange} value={inputs.brand} name="brand" label="Brand" type="text" />
@@ -73,7 +84,7 @@ export const NewProduct = () => {
         <LabelledInput onChange={handleChange} value={inputs.totalStock} name="totalStock" label="Total Stock" type="number" />
         <SelectCategory onChange={handleChange} value={inputs.category} name="category" label="Category"/>
         <TextArea onChange={handleChange} value={inputs.description} label="Description" name="description" rows={4}/>
-        <Button name="Sell Product" type="submit">Sell Product</Button>
+        <Button name="Sell Product" type="submit">Update</Button>
       </form>
     </div>
   );
