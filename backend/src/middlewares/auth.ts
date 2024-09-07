@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { User } from "../models/User";
 
 
 export const isAuth = async (req: Request, res: Response, next: NextFunction) => {
@@ -21,4 +22,13 @@ export const isAuth = async (req: Request, res: Response, next: NextFunction) =>
      } catch (e: any) {
           res.status(403).json({ success: false, message: e.message})
      }
+}
+
+export const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
+     const user = await User.findById(req.headers["userId"]);
+     if (!user) return res.status(400).json({ success: false, message: "Please Signin again"});
+     if (user.role === "admin") {
+          return next();
+     }
+     res.status(403).json({ success: false, message: "You are not an admin"});
 }
