@@ -22,3 +22,43 @@ interface UserState {
      loading?: boolean;
      message?: string;
 }
+
+interface ProductType {
+     _id: string;
+     user: string;
+     title: string;
+     brand: string;
+     image: string | null;
+     category: string;
+     description: string;
+     price: number;
+     salePrice: number;
+     totalStock: number;
+}
+interface AddProductForm {
+     title: string;
+     brand: string;
+     image: string | null;
+     category: string;
+     description: string;
+     price: number;
+     salePrice: number;
+     totalStock: number;
+}
+interface UpdateProductForm {
+     title?: string;
+     brand?: string;
+     image?: string | null;
+     category?: string;
+     description?: string;
+     price?: number;
+     salePrice?: number;
+     totalStock?: number;
+}
+
+interface AdminProductState {
+     loading: boolean;
+     message: string;
+     productList: ProductType[];
+     product: ProductType | null;
+}
