@@ -56,7 +56,7 @@ interface UpdateProductForm {
      totalStock?: number;
 }
 
-interface AdminProductState {
+interface ProductState {
      loading: boolean;
      message: string;
      productList: ProductType[];

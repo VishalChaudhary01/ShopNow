@@ -25,7 +25,6 @@ export function AdminProducts() {
         <div className="flex justify-center items-center text-3xl text-gray-700 font-bold pb-4">
           Your All Products are here!
         </div>
-        {/* {loading && <Loader />} */}
         <Table>
           <TableHeader>
             <TableRow className="bg-gray-200 hover:bg-gray-200">
@@ -41,7 +40,7 @@ export function AdminProducts() {
           <TableBody>
             {productList.map((product) => {
                 return (
-                      <TableRow key={num++} className="font-medium text-gray-600">
+                      <TableRow key={product._id} className="font-medium text-gray-600">
                           <TableCell>{num++}</TableCell>
                           <TableCell onClick={() => setOpenProduct(true)} className="cursor-pointer hover:text-blue-500 hover:underline">{product.title}</TableCell>
                           {openProduct && 
@@ -51,7 +50,7 @@ export function AdminProducts() {
                           <TableCell>{product.price}</TableCell>
                           <TableCell>{product.salePrice}</TableCell>
                           <TableCell><Link to={`/admin/products/update/${product._id}`} className="hover:text-green-500"><SquarePen /></Link></TableCell>
-                          <TableCell onClick={() => setOpenDeleteDialog(true)} className="cursor-pointer"><Trash2 /></TableCell>
+                          <TableCell onClick={() => setOpenDeleteDialog(true)} className="cursor-pointer hover:text-red-500"><Trash2 /></TableCell>
                           {openDeleteDialog && 
                             <DeleteProduct open={openDeleteDialog} setOpen={setOpenDeleteDialog} id={product._id}/>
                           }

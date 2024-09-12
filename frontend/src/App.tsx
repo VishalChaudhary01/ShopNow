@@ -16,6 +16,8 @@ import { Cart } from "./pages/shop/cart";
 import { UserAccount } from "./pages/shop/account";
 import { NewProduct } from "./pages/admin/newProduct";
 import { UpdateProduct } from "./pages/admin/updateProduct";
+import { AllProduct } from "./pages/shop/allProducts";
+import { ProductDetails } from "./pages/shop/productDetails";
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -38,6 +40,8 @@ export default function App() {
         </CheckAuth>
       }>
         <Route index element={<Home />} />
+        <Route path="products" element={<AllProduct />} />
+        <Route path="product/:id" element={<ProductDetails />} />
         <Route path="cart" element={<Cart />} />
         <Route path="account" element={<UserAccount />} />
       </Route>

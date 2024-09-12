@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "../../axios";
 
-const initialState: AdminProductState = {
+const initialState: ProductState = {
      loading: false,
      message: "",
      productList: [],

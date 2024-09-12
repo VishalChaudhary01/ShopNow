@@ -2,12 +2,18 @@ import { AlignJustify, LogOut } from "lucide-react";
 import { Button } from "../ui/button";
 import { logout } from "@/store/userSlice";
 import { useAppDispatch } from "@/store/hooks";
+import { toast } from "sonner";
 
 export function AdminHeader({ setOpen }: {setOpen: React.Dispatch<React.SetStateAction<boolean>>}) {
      const dispatch = useAppDispatch(); 
      async function handleLogout() {
           const response = await dispatch(logout());
-          console.log(response);
+          if (response.payload.success) {
+               toast.success(`${response.payload.message}`)
+          } else {
+               console.log(response);
+               toast.error(`${response.payload.message}`)
+          }
      }
 
      return (

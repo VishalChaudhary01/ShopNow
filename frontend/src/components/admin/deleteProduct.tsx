@@ -25,11 +25,11 @@ export function DeleteProduct({ open, setOpen, id }: DeleteProductProps) {
      }
   return (
     <Dialog open={open} onOpenChange={() => setOpen(false)}>
-      <DialogContent className="w-96">
+      <DialogContent aria-describedby="null" className="w-96">
         <DialogHeader className="flex justify-center items-center">
           <DialogTitle className="text-2xl my-4">Confirm delete this Product</DialogTitle>
-          <Button onClick={handleDelete} className="w-80">Delete</Button>
         </DialogHeader>
+        <Button onClick={handleDelete} className="w-80">Delete</Button>
       </DialogContent>
     </Dialog>
   );

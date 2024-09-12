@@ -1,10 +1,4 @@
-import {
-  BadgeCheck,
-  ChartNoAxesCombined,
-  LayoutDashboard,
-  ShoppingBasket,
-  BadgePlus
-} from "lucide-react";
+import { BadgeCheck, ChartNoAxesCombined, LayoutDashboard, ShoppingBasket, BadgePlus } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 
@@ -35,11 +29,7 @@ const adminSidebarMenuItems = [
   },
 ];
 
-function MenuItems({
-  setOpen,
-}: {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+function MenuItems({ setOpen }: { setOpen: (e: boolean) => void }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   return (
@@ -64,15 +54,8 @@ function MenuItems({
   );
 }
 
-export function AdminSidebar({
-  open,
-  setOpen,
-}: {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export function AdminSidebar({ open, setOpen }: { open: boolean; setOpen: (e: boolean) => void }) {
   const navigate = useNavigate();
-
   return (
     <>
       <Sheet open={open} onOpenChange={setOpen}>
@@ -88,7 +71,7 @@ export function AdminSidebar({
           </div>
         </SheetContent>
       </Sheet>
-      <aside className="h-screen hidden w-64 flex-col border-r p-6 lg:flex">
+      <aside className="h-screen hidden w-64 flex-col border-r p-6 lg:flex md:flex">
         <div
           onClick={() => navigate("/admin/dashboard")}
           className="flex cursor-pointer items-center gap-2"

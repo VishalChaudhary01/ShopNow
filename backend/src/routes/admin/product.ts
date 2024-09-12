@@ -1,6 +1,6 @@
 import express from "express";
-import { addProduct, deleteProduct, getAllProducts, getProductById, handleUpload, updateProduct } from "../controllers/admin/product";
-import { upload } from "../middlewares/cloudinary";
+import { addProduct, deleteProduct, getAllProducts, getProductById, handleUpload, updateProduct } from "../../controllers/admin/product";
+import { upload } from "../../middlewares/cloudinary";
 
 const router = express.Router();
 
