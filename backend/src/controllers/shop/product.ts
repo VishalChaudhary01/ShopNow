@@ -8,11 +8,14 @@ interface FilterType {
 
 export async function getFilterdProducts(req: Request, res: Response) {
      try {
-          const { category = ["all"], sortBy = "price-lowtohigh" }: FilterType = req.query;
+          const { category = [], sortBy = "price-lowtohigh" }: FilterType = req.query;
           const filters: Record<string, any> = {};
 
-          if (category) {
+          if (category && category.length > 0) {
                filters.category = { $in: category }
+          }
+          if (category.length === 0) {
+               delete filters.category;
           }
           const sort: Record<string, 1 | -1> = {};
           switch (sortBy) {
