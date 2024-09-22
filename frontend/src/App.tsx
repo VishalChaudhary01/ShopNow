@@ -29,8 +29,6 @@ export default function App() {
 
   if (loading) return <div className="flex flex-col items-center justify-center text-3xl font-bold">Loading....</div>
 
-  console.log(isAuthenticated, user);
-
   return (
     <BrowserRouter>
     <Routes>

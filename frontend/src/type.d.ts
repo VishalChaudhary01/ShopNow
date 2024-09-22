@@ -62,3 +62,22 @@ interface ProductState {
      productList: ProductType[];
      product: ProductType | null;
 }
+
+interface ProductId {
+     _id: string;
+     image: string;
+     title: string;
+     price: number;
+     salePrice: number;
+     quantity: number;
+     totalStock: number;
+}
+interface CartItems {
+     productId: ProductId;
+}
+
+interface CartState {
+     loading: boolean;
+     message: string;
+     productList: CartProduct[];
+}
