@@ -24,7 +24,7 @@ export function Header() {
      return (
           <div className="sticky top-0 flex justify-between border-b py-4 px-5 shadow bg-white text-gray-700 hover:text-gray-800">
                <div className="font-bold text-2xl">
-                    <Link to='/shop'>
+                    <Link to='/'>
                          <span className="text-yellow-500">S</span>hop<span className="text-yellow-600">N</span>ow
                     </Link>
                </div>

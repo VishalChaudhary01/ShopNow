@@ -18,7 +18,7 @@ export function Cart() {
           dispatch(fetchCartItems());
      }, []);
 
-     if (loading) return <div>Loading...</div>;
+     if (loading) return <div className="min-h-screen">Loading...</div>;
 
      const totalItems = productList.reduce((acc, item) => acc + item.quantity, 0);
      console.log(totalItems);

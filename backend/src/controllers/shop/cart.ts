@@ -13,7 +13,7 @@ export async function addToCart(req: Request, res: Response) {
                cart = new Cart({ userId, items: [] });
           }
           const findCurrentProductIndex = cart.items.findIndex((item) => {
-               item.productId.toString() === productId.toString();
+               return item.productId.toString() === productId.toString();
           });
           if (findCurrentProductIndex === -1) {
                cart.items.push({ productId, quantity });
