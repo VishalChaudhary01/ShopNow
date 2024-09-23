@@ -28,10 +28,10 @@ export const Signin = () => {
     const response = await dispatch(signinUser(formData));
     if (response.payload.success) {
       toast.success(`${response.payload.message}`);
-      navigate("/shop");
+      navigate("/");
     } else {
       console.log(response)
-      toast.error(`${response.payload.message}`)
+      toast.error(`${response.payload.message || "Some thing went wrong"}`)
     }
   };
 

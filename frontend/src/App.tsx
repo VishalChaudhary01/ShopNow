@@ -25,38 +25,38 @@ export default function App() {
 
   useEffect(() => {
     dispatch(profile());
-  }, [dispatch]);
+  }, [dispatch, isAuthenticated]);
 
   if (loading) return <div className="flex flex-col items-center justify-center text-3xl font-bold">Loading....</div>
 
   return (
     <BrowserRouter>
     <Routes>
-      <Route path="/shop" element={
+      <Route element={
         <CheckAuth isAuthenticated={isAuthenticated} user={user}>
           <ShopLayout />
         </CheckAuth>
       }>
-        <Route index element={<Home />} />
-        <Route path="products" element={<AllProduct />} />
-        <Route path="product/:id" element={<ProductDetails />} />
-        <Route path="cart" element={<Cart />} />
-        <Route path="account" element={<UserAccount />} />
+        <Route path="/" index element={<Home />} />
+        <Route path="shop/products" element={<AllProduct />} />
+        <Route path="shop/product/:id" element={<ProductDetails />} />
+        <Route path="shop/cart" element={<Cart />} />
+        <Route path="shop/account" element={<UserAccount />} />
       </Route>
 
-      <Route path="/admin" element={
+      <Route element={
         <CheckAuth isAuthenticated={isAuthenticated} user={user}>
           <AdminLayout />
         </CheckAuth>
         }>
-        <Route path="dashboard" element={<AdminDashboard />} />
-        <Route path="order" element={<AdminOrder />} />
-        <Route path="products" element={<AdminProducts />} />
-        <Route path="new-product" element={<NewProduct />} />
-        <Route path="products/update/:id" element={<UpdateProduct />} />
+        <Route path="admin/dashboard" element={<AdminDashboard />} />
+        <Route path="admin/order" element={<AdminOrder />} />
+        <Route path="admin/products" element={<AdminProducts />} />
+        <Route path="admin/new-product" element={<NewProduct />} />
+        <Route path="admin/products/update/:id" element={<UpdateProduct />} />
       </Route>
 
-      <Route path="/" element={
+      <Route element={
         <CheckAuth isAuthenticated={isAuthenticated} user={user}>
           <AuthLayout /> 
         </CheckAuth>
