@@ -1,4 +1,4 @@
-import { Curousel } from "@/components/shop/Carousel";
+import { CarouselComponent } from "@/components/shop/Carousel";
 import { Category } from "@/components/shop/CategoryBanner";
 import { LatestProductBanner } from "@/components/shop/LatestProductBanner";
 
@@ -6,7 +6,7 @@ export function Home() {
      return (
           <div className="min-h-screen bg-zinc-100">
                <Category />
-               <Curousel />
+               <CarouselComponent />
                <LatestProductBanner />
           </div>
      )
