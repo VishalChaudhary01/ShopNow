@@ -22,7 +22,7 @@ export const sortOptions = [
 export const categeris = [
      {
           img: cat_1,
-          category: "All"
+          category: ""
      },
      {
           img: cat_2,

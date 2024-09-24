@@ -7,17 +7,38 @@ import { fetchFilterdProduct } from "@/store/shop/productSlice";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { AlignLeft, ArrowUpDownIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 export function AllProduct() {
+     const [searchParams] = useSearchParams();
      const [openFilter, setOpenFilter] = useState(false);
      const dispatch = useAppDispatch();
      const [sort, setSort] = useState("");
      const [filters, setFilters] = useState<string[]>([]);
      const { productList, loading } = useAppSelector((state) => state.shopProducts);
+     const category = searchParams.get("category")
+
+     useEffect(() => {
+          if (category) {
+               sessionStorage.clear();
+               const newFilter = [category];
+               setFilters(newFilter);
+          }
+          console.log(filters);
+          sessionStorage.setItem("filters", JSON.stringify(filters));
+     }, [category])
+     console.log(filters);
 
      useEffect(() => {
           dispatch(fetchFilterdProduct({ filterParams: filters, sortParams: sort }));
      }, [dispatch, filters, sort]);
+
+     useEffect(() => {
+          const storedFilters = sessionStorage.getItem("filters");
+          if (!filters && storedFilters) {
+               setFilters(JSON.parse(storedFilters));
+          }
+     }, [])
 
      function handleSort(value: string) {
           setSort(value);
@@ -31,11 +52,6 @@ export function AllProduct() {
           }
           sessionStorage.setItem("filters", JSON.stringify(filters));
      }
-
-     useEffect(() => {
-          const storedFilters = sessionStorage.getItem("filters");
-          setFilters(storedFilters ? JSON.parse(storedFilters) : []);
-     }, [])
 
      if (loading) return <div className="min-h-screen flex flex-col justify-center items-center text-2xl">Loading...</div>
 

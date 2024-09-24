@@ -21,7 +21,7 @@ export const LatestProductBanner = () => {
           Latest Products
         </div>
         <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 overflow-hidden">
-          {productList?.slice(0, 4).map((product) => (
+          {[...productList]?.reverse().slice(0, 4).map((product) => (
             <Link to={`/shop/product/${product._id}`} key={product._id}>
               <div className="flex flex-col items-center justify-between border rounded-lg p-4 bg-white shadow hover:shadow-lg transition-shadow duration-200 ease-in-out w-full h-full">
                 <img
