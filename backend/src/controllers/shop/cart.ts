@@ -102,25 +102,3 @@ export async function updateCartItemQty(req: Request, res: Response) {
           })
      }
 }
-
-export async function deleteCartItem(req: Request, res: Response) {
-     try {
-          const userId = req.headers["userId"];
-          const productId = req.params.id;
-          const cart = await Cart.findOne({ userId });
-          if (!cart) return res.status(404).json({ success: false, message: "Cart not found" });
-          cart.items = cart.items.filter((item) => {
-               item.productId.toString() !== productId
-          })
-          await cart.save();
-          res.status(200).json({ 
-               success: true,
-               message: "Product deleted successfully"
-          });
-     } catch (e: any) {
-          res.status(400).json({ 
-               success: false,
-               message: e.message || "Something went wrong"
-          })
-     }
-}

@@ -7,9 +7,9 @@ export function ShopLayout() {
      return (
           <div>
                <Header />
-               <section>
+               <main className="min-h-screen">
                     <Outlet />
-               </section>
+               </main>
                <Footer/>
           </div>
      )

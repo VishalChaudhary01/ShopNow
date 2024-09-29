@@ -55,21 +55,6 @@ export const updateQuantity = createAsyncThunk(
      }
 )
 
-export const removeFromCart = createAsyncThunk(
-     "/shop/cart/:id",
-     async (id: number, { rejectWithValue }) => {
-          try {
-               const { data } = await axios.delete(`/api/shop/cart/${id}`);
-               return data;
-          } catch (e: any) {
-               return rejectWithValue(
-                    e.response && e.response.data
-                         ? e.response.data
-                         : e.response
-               )
-          }
-     }
-)
 
 const CartSlice = createSlice({
      name: "cartItems",

@@ -16,12 +16,12 @@ export function CarouselComponent() {
                     plugins={[autoplay.current]} 
                     className="w-full bg-black"
                     >
-                    <CarouselContent className="">
-                         <CarouselItem className="flex justify-center w-full overflow-hidden"><img src={slider_4} alt="image" /></CarouselItem>
-                         <CarouselItem className="flex justify-center w-full overflow-hidden"><img src={slider_4} alt="image" /></CarouselItem>
-                         <CarouselItem className="flex justify-center w-full overflow-hidden"><img src={slider_4} alt="image" /></CarouselItem>
-                         <CarouselItem className="flex justify-center w-full overflow-hidden"><img src={slider_4} alt="image" /></CarouselItem>
-                         <CarouselItem className="flex justify-center w-full overflow-hidden"><img src={slider_4} alt="image" /></CarouselItem>
+                    <CarouselContent>
+                         <CarouselItem className="flex justify-center w-full"><img src={slider_4} alt="image" /></CarouselItem>
+                         <CarouselItem className="flex justify-center w-full"><img src={slider_4} alt="image" /></CarouselItem>
+                         <CarouselItem className="flex justify-center w-full"><img src={slider_4} alt="image" /></CarouselItem>
+                         <CarouselItem className="flex justify-center w-full"><img src={slider_4} alt="image" /></CarouselItem>
+                         <CarouselItem className="flex justify-center w-full"><img src={slider_4} alt="image" /></CarouselItem>
                     </CarouselContent>
                     <CarouselPrevious className="translate-x-12"/>
                     <CarouselNext className="-translate-x-12"/>

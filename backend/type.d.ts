@@ -8,5 +8,7 @@ declare namespace NodeJS {
           CLOUD_NAME: string;
           API_KEY: string;
           API_SECRET: string;
+          STRIPE_SECRET: string;
+          STRIPE_KEY: string;
      }
 }

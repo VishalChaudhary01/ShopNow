@@ -18,6 +18,7 @@ import { NewProduct } from "./pages/admin/newProduct";
 import { UpdateProduct } from "./pages/admin/updateProduct";
 import { AllProduct } from "./pages/shop/allProducts";
 import { ProductDetails } from "./pages/shop/productDetails";
+import { AddressForm } from "./pages/shop/addressForm";
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="shop/products" element={<AllProduct />} />
         <Route path="shop/product/:id" element={<ProductDetails />} />
         <Route path="shop/cart" element={<Cart />} />
+        <Route path="shop/checkout/address" element={<AddressForm />} />
         <Route path="shop/account" element={<UserAccount />} />
       </Route>
 

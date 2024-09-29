@@ -3,11 +3,12 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import { fetchCartItems, updateQuantity } from "@/store/shop/cartSlice";
 import { Minus, Plus } from "lucide-react";
 import { useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 
 export function Cart() {
+     const navigate = useNavigate();
      const dispatch = useAppDispatch();
-     const { loading, productList } = useAppSelector((state) => state.cartItems);
+     const { productList } = useAppSelector((state) => state.cartItems);
      
      async function handleUpdate(productId: string, quantity: number) {
           await dispatch(updateQuantity({productId, quantity}));
@@ -16,12 +17,10 @@ export function Cart() {
 
      useEffect(() => {
           dispatch(fetchCartItems());
-     }, []);
-
-     if (loading) return <div className="min-h-screen">Loading...</div>;
+     }, [dispatch]);
 
      const totalItems = productList.reduce((acc, item) => acc + item.quantity, 0);
-     console.log(totalItems);
+     const totalPrice = productList.reduce((acc, item) => acc + item.productId.salePrice*item.quantity, 0);
 
      return (
           <div className="min-h-screen flex justify-center items-start w-full p-4">
@@ -40,15 +39,24 @@ export function Cart() {
                                         <div className="flex justify-start gap-2 items-center py-2">
                                              <Button onClick={() => (handleUpdate(p.productId._id, -1))} className="bg-gray-100 hover:text-white text-black w-10 px-1"><Minus /></Button>
                                              <span className="text-md font-bold px-4 py-1 border rounded-md text-gray-600">{p.quantity}</span>
-                                             <Button onClick={() => (handleUpdate(p.productId._id, +1))} disabled={p.productId.totalStock <= p.quantity} className="bg-gray-100 hover:text-white text-balck w-10 px-1"><Plus /></Button>
+                                             <Button onClick={() => (handleUpdate(p.productId._id, +1))} disabled={p.productId.totalStock <= p.quantity} className="bg-gray-100 hover:text-white text-black w-10 px-1"><Plus /></Button>
                                         </div>
                                    </div>
                               </div>
                          ))}
+                         <div className="flex justify-between items-center w-full px-6 lg:w-3/4 bg-gray-800 rounded-md p-4 my-4 text-white text-base font-medium">
+                              <div className=" flex gap-2 lg:gap-4">
+                                   Total Items: <span>{totalItems}</span>
+                              </div>
+                              <div className=" flex gap-2 lg:gap-4">
+                                   Total Price: <span>Rs {totalPrice.toLocaleString()}</span>
+                              </div>
+                              <Button onClick={() => navigate("/shop/checkout/address")} className="bg-gray-100 hover:bg-white text-black text-base font-medium">Checkout</Button>
+                         </div>
                     </div>
                ) : (
-                    <div>
-                         No Product in cart
+                    <div className="text-xl font-bold text-gray-700">
+                         Your cart is empty!
                     </div>
                )}
           </div>
