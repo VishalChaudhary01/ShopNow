@@ -47,10 +47,10 @@ export function UserAccount() {
                     </div>
                     <div className="w-full">
                          {orderList.map((order) => (
-                              <div className="border rounded-md shadow-sm p-4 flex flex-col lg:flex-row justify-between lg:px-8 items-center w-full bg-white">
-                                   <div>
+                              <div className="grid grid-cols-2 space-x-8 my-4 lg:grid-cols-4 border rounded-md shadow-sm p-4 lg:px-8 items-center w-full bg-white">
+                                   <div className="col-span-2">
                                    {order.products.map((product) => (
-                                        <div onClick={() => navigate(`/shop/product/${product.productId._id}`)} className="flex gap-8 justify-start border-b py-2 cursor-pointer">
+                                        <div onClick={() => navigate(`/shop/product/${product.productId._id}`)} className="flex justify-between border-b py-2 px-8 cursor-pointer">
                                              <img src={product.productId.image} alt="Image" width={80} height={80} />
                                              <div className="text-base font-medium text-gray-800">
                                                   <div>{product.name}</div>
@@ -61,8 +61,8 @@ export function UserAccount() {
                                    ))}
                                    </div>
                                    <div className="flex flex-col gap-2 lg:gap-4 text-base font-medium text-gray-700">
-                                        <div className={`text-xl font-bold text-gray-700 ${order.status === "Deliverd" ? "text-green-600" : "text-blue-700"}`}>
-                                             <span className="text-gray-700 pr-2">Status:</span>{order.status}
+                                        <div className={`lg:text-xl font-bold ${order.status === "Deliverd" ? "text-green-700" : "text-blue-700"}`}>
+                                             <span className="pr-2">Status:</span>{order.status}
                                         </div>
                                         <div>
                                              <span>Order Date: </span>{new Date(order.createdAt).toLocaleDateString()}
@@ -72,7 +72,7 @@ export function UserAccount() {
                                         </div>
                                    </div>
                                    <div className="flex flex-col lg:gap-2 text-base font-medium text-gray-700">
-                                        <div className="text-xl font-bold">Address: </div>
+                                        <div className="lg:text-xl font-bold">Address: </div>
                                         <span>{order.addressInfo.street}</span>
                                         <span>{order.addressInfo.city}</span>
                                         <span>{order.addressInfo.state}</span>
