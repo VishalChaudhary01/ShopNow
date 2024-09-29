@@ -1,19 +1,13 @@
 import { useState } from "react";
 import { LabelledInput } from "../../components/common/LabelledInput";
 import { toast } from "sonner";
-import { useAppSelector } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { Button } from "@/components/ui/button";
 import { loadStripe } from "@stripe/stripe-js";
-import axios from "../../axios";
-
-interface Address {
-     street: string;
-     city: string;
-     state: string;
-     pin: number;
-}
+import { createOrder } from "@/store/shop/orderSlice";
 
 export function AddressForm() {
+     const dispatch = useAppDispatch();
      const { productList } = useAppSelector((state) => state.cartItems);
      const [addressInfo, setAddressInfo] = useState<Address>({
           street: "",
@@ -37,16 +31,17 @@ export function AddressForm() {
           }
           const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || "");
           const products = productList.map((product) => ({
-               productId: product.productId.productId,
+               productId: product.productId._id,
                name: product.productId.title,
                price: product.productId.salePrice,
                quantity: product.quantity,
           }));
           const orderInfo = { products, addressInfo }
-          const response = await axios.post(`api/shop/order/create-order`, orderInfo)
-          if (response.data.success) {
+          const response = await dispatch(createOrder(orderInfo))
+          console.log(response);
+          if (response.payload.success) {
                const result = await stripe?.redirectToCheckout({
-                    sessionId:response.data.id
+                    sessionId:response.payload.id
                });
                toast.success("Payment successfull");
                if(result?.error){
@@ -58,6 +53,7 @@ export function AddressForm() {
                toast.error("Something went wrong")
           } 
      }
+     console.log(productList);
       
      return (
           <div className="flex justify-center w-full">

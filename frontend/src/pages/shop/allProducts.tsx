@@ -56,7 +56,7 @@ export function AllProduct() {
      if (loading) return <div className="min-h-screen flex flex-col justify-center items-center text-2xl">Loading...</div>
 
      return (
-          <div className="min-h-screen flex gap-4">
+          <div className="min-h-screen flex gap-4 bg-gray-50">
                <Filter filters={filters} handleFilter={handleFilter} open={openFilter} setOpen={setOpenFilter} />
                <div className="w-full">
                     <div className="p-4 border-b shadow-sm flex items-center justify-between">

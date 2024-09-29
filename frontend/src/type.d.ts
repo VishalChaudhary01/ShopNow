@@ -81,3 +81,30 @@ interface CartState {
      message: string;
      productList: CartProduct[];
 }
+
+interface Product {
+     productId: {image: string, _id: string};
+     image: string;
+     name: string;
+     price: number;
+     quantity: number;
+}
+interface Address {
+     street: string;
+     city: string;
+     state: string;
+     pin: number;
+}
+
+interface Order {
+     products: Product[];
+     addressInfo: Address;
+     status: "On the way" | "Deliverd" | "Cancel";
+     createdAt: Date;
+     updatedAt: Date;
+}
+interface OrderState {
+     loading: boolean;
+     message: string;
+     orderList: Order[];
+}

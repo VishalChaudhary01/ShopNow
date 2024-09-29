@@ -23,11 +23,11 @@ export function Cart() {
      const totalPrice = productList.reduce((acc, item) => acc + item.productId.salePrice*item.quantity, 0);
 
      return (
-          <div className="min-h-screen flex justify-center items-start w-full p-4">
+          <div className="min-h-screen flex justify-center items-start w-full p-4 bg-gray-50">
                {productList.length ? (
                     <div className="w-full flex flex-col justify-start items-center">
                          {productList.map((p) => (
-                              <div key={p._id} className="flex justify-start md:items-center gap-8 border py-2 px-6 w-full lg:w-3/4 rounded-md">
+                              <div key={p._id} className="flex justify-start md:items-center gap-8 border py-2 px-6 w-full lg:w-3/4 rounded-md bg-white">
                                    <img src={p.productId.image} alt="Image" width={80} height={80}/>
                                    <div className="flex flex-col md:flex-row md:justify-between md:items-center w-full">
                                         <div className="font-medium text-gray-700">

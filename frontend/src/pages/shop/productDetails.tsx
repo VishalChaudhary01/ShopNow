@@ -29,7 +29,7 @@ export function ProductDetails() {
      if (loading) return <div>Loading...</div>
 
      return (
-          <div className="min-h-screen flex justify-center items-center py-8">
+          <div className="min-h-screen flex justify-center items-start pt-16 bg-gray-50">
           {product && 
               <div className="flex flex-col md:flex-row lg:flex-row w-full gap-4">
                <div className="w-full md:w-1/3 lg:w-1/3 flex justify-center items-center">
@@ -38,10 +38,10 @@ export function ProductDetails() {
                     alt="product" 
                     width={300} 
                     height={300} 
-                    className="border border-gray-100 rounded-xl p-4 shadow hover:shadow-lg transition-shadow duration-200 ease-in-out"
+                    className="border rounded-xl p-4 shadow hover:shadow-lg transition-shadow duration-200 ease-in-out bg-white"
                />
                </div>
-               <div className="border-t-2 lg:border-l-2 flex flex-col pl-10 items-start w-full md:w-2/3 lg:w-2/3 text-lg font-medium text-gray-700 p-4">
+               <div className="border shadow-sm rounded-md flex flex-col pl-10 items-start w-full md:w-2/3 lg:w-2/3 text-lg font-medium text-gray-700 bg-white p-4">
                     <div>{product.title}</div>
                     {product.totalStock < 10 && <span className="text-red-500">Hurry up! only {product.totalStock} are left</span>}
                     <div className="flex gap-2">
