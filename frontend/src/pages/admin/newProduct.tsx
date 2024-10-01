@@ -55,8 +55,8 @@ export const NewProduct = () => {
 
   return (
     <div className="py-2">
-      <div className="flex justify-center text-3xl text-gray-700 font-bold pb-4">
-        Sell new Product
+      <div className="flex justify-center items-center bg-gray-800 w-full rounded-md">
+        <div className="py-4 text-xl font-bold text-white">Sell new Product</div>
       </div>
       <UploadImage
         imageFile={imageFile}

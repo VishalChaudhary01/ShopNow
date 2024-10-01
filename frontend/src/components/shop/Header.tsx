@@ -27,25 +27,18 @@ export function Header() {
                          <span className="text-yellow-500">S</span>hop<span className="text-yellow-600">N</span>ow
                     </Link>
                </div>
-               { true ? (
-                    <div className="flex lg:gap-4 font-medium items-center">
-                         {/* <Link to='/seller' className="px-4">Become a seller</Link> */}
-                         <Link to='/shop/cart' className="px-4"><ShoppingCart /></Link>
-                         <DropdownMenu >
-                              <DropdownMenuTrigger ><CircleUserRound /></DropdownMenuTrigger>
-                              <DropdownMenuContent className="mr-6">
-                                   <DropdownMenuItem onClick={() => navigate("/shop/account")} className="flex gap-4 px-4 text-lg font-medium"><User />Account</DropdownMenuItem>
-                                   <DropdownMenuSeparator />
-                                   <DropdownMenuItem onClick={handleLogout} className="text-lg font-medium flex gap-4 px-4"><LogOut />Logout</DropdownMenuItem>
-                              </DropdownMenuContent>
-                         </DropdownMenu>
-                    </div>
-               ) : (
-                    <div className="flex font-medium">
-                         <Link to='/signin' className="px-4">Signin</Link>
-                         <Link to='/signup' className="px-4">Signup</Link>
-                    </div>
-               )}   
+               <div className="flex lg:gap-4 font-medium items-center">
+                    {/* <Link to='/seller' className="px-4">Become a seller</Link> */}
+                    <Link to='/shop/cart' className="px-4"><ShoppingCart /></Link>
+                    <DropdownMenu >
+                         <DropdownMenuTrigger ><CircleUserRound /></DropdownMenuTrigger>
+                         <DropdownMenuContent className="mr-6">
+                              <DropdownMenuItem onClick={() => navigate("/shop/account")} className="flex gap-4 px-4 text-lg font-medium"><User />Account</DropdownMenuItem>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem onClick={handleLogout} className="text-lg font-medium flex gap-4 px-4"><LogOut />Logout</DropdownMenuItem>
+                         </DropdownMenuContent>
+                    </DropdownMenu>
+               </div>
           </div>
      )
 }

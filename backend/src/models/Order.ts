@@ -16,7 +16,7 @@ interface OrderSchema {
      userId: ObjectId;
      products: Product[];
      addressInfo: Address[];
-     status: "On the way" | "Deliverd" | "Cancel";
+     status: "On the way" | "Delivered" | "Cancel";
 }
 
 const orderSchema = new mongoose.Schema<OrderSchema>(

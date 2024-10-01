@@ -6,10 +6,13 @@ import { connectToDB } from "./config/db";
 import { isAdmin, isAuth } from "./middlewares/auth";
 
 import userRoutes from "./routes/user";
-import adminProductRoutes from "./routes/admin/product";
 import shopProductRoutes from "./routes/shop/product";
 import cartRoutes from "./routes/shop/cart";
 import orderRoutes from "./routes/shop/order";
+
+import adminProductRoutes from "./routes/admin/product";
+import adminOrderRoutes from "./routes/admin/order";
+
 
 dotenv.config();
 
@@ -28,6 +31,7 @@ app.use("/api/shop/products", shopProductRoutes);
 app.use("/api/shop/cart", isAuth, cartRoutes);
 app.use("/api/shop/order", isAuth, orderRoutes);
 app.use("/api/admin/products", isAuth, isAdmin, adminProductRoutes);
+app.use("/api/admin/order", isAuth, isAdmin, adminOrderRoutes)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`server started on port ${PORT}`));

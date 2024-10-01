@@ -73,8 +73,8 @@ export const UpdateProduct = () => {
 
   return (
     <div className="py-2">
-      <div className="flex justify-center text-3xl text-gray-700 font-bold pb-4">
-        Update Product
+      <div className="flex justify-center items-center bg-gray-800 w-full rounded-md">
+        <div className="py-4 text-xl font-bold text-white">Update Product</div>
       </div>
       <form onSubmit={handleSubmit} encType="multipart/form-data" className="max-w-sm mx-auto py-4">
         <LabelledInput onChange={handleChange} value={inputs.title} name="title" label="Product Name" type="text"/>
