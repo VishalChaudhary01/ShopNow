@@ -99,7 +99,7 @@ interface Address {
 interface Order {
      products: Product[];
      addressInfo: Address;
-     status: "On the way" | "Delivered" | "Cancel";
+     status: string;
      createdAt: Date;
      updatedAt: Date;
 }

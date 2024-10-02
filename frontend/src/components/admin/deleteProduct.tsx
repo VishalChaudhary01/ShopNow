@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { deleteProduct } from "@/store/admin/productSlice";
 import { useAppDispatch } from "@/store/hooks";
 import { toast } from "sonner";
@@ -17,7 +17,6 @@ export function DeleteProduct({ open, setOpen, id }: DeleteProductProps) {
                 const response = await dispatch(deleteProduct(id))
                 toast.success(response.payload.message);
                 setOpen(false);
-                window.location.reload();
           } catch (e: any) {
                console.error(e);
                toast.error("Something went wrong")
@@ -29,7 +28,9 @@ export function DeleteProduct({ open, setOpen, id }: DeleteProductProps) {
         <DialogHeader className="flex justify-center items-center">
           <DialogTitle className="text-2xl my-4">Confirm delete this Product</DialogTitle>
         </DialogHeader>
-        <Button onClick={handleDelete} className="w-80">Delete</Button>
+        <DialogFooter>
+          <Button onClick={handleDelete} className="w-80">Delete</Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

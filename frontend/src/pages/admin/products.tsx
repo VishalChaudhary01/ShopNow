@@ -18,7 +18,7 @@ export function AdminProducts() {
 
     useEffect(() => {
           dispatch(getAllProducts());
-    }, []);
+    }, [openDeleteDialog]);
 
     if (loading) return <div>Loading....</div>
     

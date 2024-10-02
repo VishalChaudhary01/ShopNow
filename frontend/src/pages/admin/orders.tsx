@@ -1,17 +1,21 @@
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { fetchAllOrders } from "@/store/admin/orderSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UpdateStatus } from "@/components/admin/UpdateStatus";
 
 export function AdminOrder() {
      const navigate = useNavigate();
      const dispatch = useAppDispatch();
+     const [openUpdate, setOpenUpdate] = useState<boolean>(false);
+     const [status, setStatus] = useState<string>("");
+     const [selectedOrder, setSelectedOrder] = useState<string | null>(null);
      const { orders } = useAppSelector((state) => state.adminOrder);
 
      useEffect(() => {
           dispatch(fetchAllOrders());
-     }, []);
-     console.log(orders);
+     }, [openUpdate]);
+
      return (
           <div className="flex flex-col items-center py-4 w-full">
                <div className="flex justify-center items-center bg-gray-800 w-full rounded-md">
@@ -33,7 +37,11 @@ export function AdminOrder() {
                               ))}
                               </div>
                               <div className="flex flex-col gap-2 lg:gap-4 text-base font-medium text-gray-700">
-                                   <div className={`lg:text-xl font-bold ${order.status === "Delivered" ? "text-green-700" : "text-blue-700"}`}>
+                                   <div onClick={() => {
+                                        setStatus(order.status)
+                                        setSelectedOrder(order._id)
+                                        setOpenUpdate(true);
+                                   }} className={`lg:text-xl font-bold hover:underline cursor-pointer ${order.status === "Delivered" ? "text-green-700" : "text-blue-700"}`}>
                                         <span className="pr-2">Status:</span>{order.status}
                                    </div>
                                    <div>
@@ -50,6 +58,9 @@ export function AdminOrder() {
                                    <span>{order.addressInfo.state}</span>
                                    <span>{order.addressInfo.pin}</span>
                               </div>
+                              {selectedOrder && (
+                                   <UpdateStatus open={openUpdate} setOpen={setOpenUpdate} orderId={selectedOrder} status={status} setStatus={setStatus} />
+                              )}
                          </div>
                     ))}
                </div>

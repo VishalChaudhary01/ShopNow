@@ -49,13 +49,13 @@ export const fetchAllOrders = createAsyncThunk(
 
 interface UpdateStatusProps {
      id: string;
-     status: "On the way" | "Delivered" | "Cancel";
+     status: string;
 }
 export const updateStatus = createAsyncThunk(
      "/admin/order/update-status/:id",
      async ({ id, status }: UpdateStatusProps, { rejectWithValue }) => {
           try {
-               const { data } = await axios.put(`/api/admin/order/update-status/${id}`, status);
+               const { data } = await axios.put(`/api/admin/order/update-status/${id}`, { status });
                return data;
           } catch (e: any) {
                return rejectWithValue(
