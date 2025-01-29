@@ -13,3 +13,7 @@ This is a full-stack e-commerce platform where admins can manage products and us
 - **React-Router-DOM**: A popular library for routing in React application.
 - **Redux Toolkit**: For state management.
 - **Axios**: A promise-based HTTP Client for node.js and the browser.
+
+![2](https://github.com/user-attachments/assets/a8bfbd28-a9cf-4add-aa96-55b6eccae489)
+
+![1](https://github.com/user-attachments/assets/5e3bc452-cd8f-40aa-8a8b-bd3c28a4bceb)
