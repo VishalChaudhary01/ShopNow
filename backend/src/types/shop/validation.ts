@@ -6,5 +6,3 @@ export const addressInput = z.object({
      state: z.string().min(1, "State is required").max(25, "State name is too long"),
      pin: z.number({ message: "Pin must be a number" }),
 });
-export type Address = z.infer<typeof addressInput>;
-

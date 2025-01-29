@@ -1,9 +1,6 @@
 import mongoose from "mongoose";
+import { ItemSchema } from "../types/shop/type";
 
-export interface ItemSchema {
-     productId: mongoose.ObjectId;
-     quantity: number;
-}
 export interface ICart {
      userId: mongoose.ObjectId;
      items: ItemSchema[]

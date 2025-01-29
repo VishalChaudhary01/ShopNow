@@ -11,8 +11,4 @@ export const addProductData = z.object({
      description: z.string(),
 })
 
-
 export const updateProductData = addProductData.partial();
-
-export type UpdateProductType = z.infer<typeof updateProductData>;
-export type ProductType = z.infer<typeof addProductData>;

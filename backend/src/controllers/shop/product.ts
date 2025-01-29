@@ -1,57 +1,45 @@
 import { Request, Response } from "express";
 import { Product } from "../../models/Product";
+import { asyncHandler } from "../../middlewares/asyncHandler";
+import { AppError } from "../../utils/AppError";
+import { IFilter } from "../../types/shop/type";
 
-interface FilterType {
-     category?: string[],
-     sortBy?: string,
-}
+export const getFilterdProducts = asyncHandler(async (req: Request, res: Response) => {
+    const { category = [], sortBy = "price-lowtohigh" }: IFilter = req.query;
+    const filters: Record<string, any> = {};
 
-export async function getFilterdProducts(req: Request, res: Response) {
-     try {
-          const { category = [], sortBy = "price-lowtohigh" }: FilterType = req.query;
-          const filters: Record<string, any> = {};
+    if (category && category.length > 0) {
+      filters.category = { $in: category };
+    }
+    if (category.length === 0) {
+      delete filters.category;
+    }
+    const sort: Record<string, 1 | -1> = {};
+    switch (sortBy) {
+      case "price-lowtohigh":
+        sort.price = 1;
+        break;
+      case "price-hightolow":
+        sort.price = -1;
+        break;
+      case "title-atoz":
+        sort.title = 1;
+        break;
+      case "title-ztoa":
+        sort.title = -1;
+        break;
+      default:
+        sort.price = 1;
+        break;
+    }
+    const products = await Product.find(filters).sort(sort);
+    res.status(200).json({ success: true, products });
+  }
+);
 
-          if (category && category.length > 0) {
-               filters.category = { $in: category }
-          }
-          if (category.length === 0) {
-               delete filters.category;
-          }
-          const sort: Record<string, 1 | -1> = {};
-          switch (sortBy) {
-               case 'price-lowtohigh':
-                    sort.price = 1;
-                    break;
-               case 'price-hightolow':
-                    sort.price = -1;
-                    break;
-               case 'title-atoz':
-                    sort.title = 1;
-                    break;
-               case 'title-ztoa':
-                    sort.title = -1;
-                    break;
-               default:
-                    sort.price = 1;
-                    break;
-          }
-          const products = await Product.find(filters).sort(sort);
-          res.status(200).json({ success: true, products });
-     } catch (e: any) {
-          console.error(e);
-          res.status(400).json({ success: false, message: "Something went wrong" })
-     }
-}
-
-export async function singleProduct(req:Request, res: Response) {
-     try {
-          const product = await Product.findById(req.params.id);
-          return res.status(200).json({ success: true, product })
-     } catch (e: any) {
-          console.error(e);
-          res.status(400).json({ 
-               success: false,
-               message: "Something went wrong, Please refresh the page"
-          })
-     }
-}
+export const singleProduct = asyncHandler(async (req: Request, res: Response) => {
+    const product = await Product.findById(req.params.id);
+    if (!product) throw new AppError("Product not found", "NOT_FOUND");
+    res.status(200).json({ success: true, product });
+  }
+);

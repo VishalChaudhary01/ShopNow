@@ -1,5 +1,7 @@
-import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
+
+import express, { Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { connectToDB } from "./config/db";
@@ -12,9 +14,9 @@ import orderRoutes from "./routes/shop/order";
 
 import adminProductRoutes from "./routes/admin/product";
 import adminOrderRoutes from "./routes/admin/order";
+import { errorHandler } from "./middlewares/errorHandler";
 
-
-dotenv.config();
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 connectToDB();
@@ -31,7 +33,16 @@ app.use("/api/shop/products", shopProductRoutes);
 app.use("/api/shop/cart", isAuth, cartRoutes);
 app.use("/api/shop/order", isAuth, orderRoutes);
 app.use("/api/admin/products", isAuth, isAdmin, adminProductRoutes);
-app.use("/api/admin/order", isAuth, isAdmin, adminOrderRoutes)
+app.use("/api/admin/order", isAuth, isAdmin, adminOrderRoutes);
 
-const PORT = process.env.PORT || 5000;
+app.get("/", (req: Request, res: Response) => {
+     res.send("Healthy server!");
+})
+
+app.all("*", () => {
+     throw new Error("API url not found");
+})
+
+app.use(errorHandler);
+
 app.listen(PORT, () => console.log(`server started on port ${PORT}`));
